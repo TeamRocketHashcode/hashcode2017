@@ -11,8 +11,6 @@ c = 30
 n = 10
 w = (np.random.rand(n) * 10).astype(int)
 v = (np.random.rand(n) * 10).astype(int)
-print(w)
-print(v)
 m = np.zeros((n, c))
 optimal_set = []
 
@@ -27,9 +25,7 @@ for i in range(n):
             if(m[i-1, j-w[i]] + v[i] > m[i-1, j]):
                 optimal_set.append(i)
 
-print(m)
 
-print("optimal set:")
 optimal_set
 
 
@@ -43,11 +39,12 @@ def solve(items, capacity):
     #   print M[i]
     M, optimal_value = generate_optimal_solutions(items, len(items), capacity)
     optimal_set = []
+    optimal_set_id = []
     # raise the recursion limit so that we can handle a large number of items
     #sys.setrecursionlimit(len(items)+10)
-    optimal_weight = get_optimal_set(items, len(items), M, len(items)-1, capacity, optimal_set, 0)
+    optimal_weight = get_optimal_set(items, len(items), M, len(items)-1, capacity, optimal_set, optimal_set_id, 0)
     
-    return optimal_set, optimal_weight, optimal_value
+    return optimal_set, optimal_weight, optimal_value, optimal_set_id
 
 
 def generate_optimal_solutions(items, n, capacity):
@@ -66,19 +63,16 @@ def generate_optimal_solutions(items, n, capacity):
     return M, M[n][capacity]
   
 
-def get_optimal_set(items, n, M, j, w, optimal_set, optimal_weight):
-    print(items[j][0])
-    print(items[j][1])
-    print(M[j-1+1][w - items[j][0]])
-    print(M[j-1+1][w])
+def get_optimal_set(items, n, M, j, w, optimal_set, optimal_set_id, optimal_weight):
     if (j < 0):
       pass
     elif (w >= items[j][0] and items[j][1] + M[j-1+1][w - items[j][0]] > M[j-1+1][w]):
       optimal_set.append(items[j])
+      optimal_set_id.append(j)
       optimal_weight += items[j][0]
-      optimal_weight = get_optimal_set(items, n, M, j-1, w - items[j][0], optimal_set, optimal_weight)
+      optimal_weight = get_optimal_set(items, n, M, j-1, w - items[j][0], optimal_set, optimal_set_id, optimal_weight)
     else:
-      optimal_weight = get_optimal_set(items, n, M, j-1, w, optimal_set, optimal_weight)
+      optimal_weight = get_optimal_set(items, n, M, j-1, w, optimal_set, optimal_set_id, optimal_weight)
       
     return optimal_weight
 
