@@ -11,8 +11,8 @@ c = 30
 n = 10
 w = (np.random.rand(n) * 10).astype(int)
 v = (np.random.rand(n) * 10).astype(int)
-print(w)
-print(v)
+#print(w)
+#print(v)
 m = np.zeros((n, c))
 optimal_set = []
 
@@ -27,9 +27,9 @@ for i in range(n):
             if(m[i-1, j-w[i]] + v[i] > m[i-1, j]):
                 optimal_set.append(i)
 
-print(m)
+#print(m)
 
-print("optimal set:")
+#print("optimal set:")
 optimal_set
 
 
@@ -67,10 +67,10 @@ def generate_optimal_solutions(items, n, capacity):
   
 
 def get_optimal_set(items, n, M, j, w, optimal_set, optimal_weight):
-    print(items[j][0])
-    print(items[j][1])
-    print(M[j-1+1][w - items[j][0]])
-    print(M[j-1+1][w])
+    #print(items[j][0])
+    #print(items[j][1])
+    #print(M[j-1+1][w - items[j][0]])
+    #print(M[j-1+1][w])
     if (j < 0):
       pass
     elif (w >= items[j][0] and items[j][1] + M[j-1+1][w - items[j][0]] > M[j-1+1][w]):
